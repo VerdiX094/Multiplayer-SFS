@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using System.IO;
 using Lidgren.Network;
 using UnityEngine;
 using SFS.IO;
@@ -54,20 +55,19 @@ namespace MultiplayerSFS.Common
 
         public WorldState(string path)
         {
-            FolderPath folder = new FolderPath(path);
-            FolderPath persistent = folder.CloneAndExtend("Persistent");
-            if (!folder.FolderExists())
+            string persistent = Path.Combine(path, "Persistent");
+            if (!Directory.Exists(path))
                 throw new Exception("Save folder cannot be found or does not exist.");
-            if (!persistent.FolderExists())
+            if (!Directory.Exists(persistent))
                 throw new Exception("'Persistent' folder cannot be found or does not exist.");
 
-            if (!JsonWrapper.TryLoadJson(folder.ExtendToFile("WorldSettings.txt"), out WorldSettings settings))
+            if (!JSON.FromFile(Path.Combine(path, "WorldSettings.txt"), out WorldSettings settings))
                 throw new Exception("'WorldSettings.txt' file cannot be found or could not be loaded.");
 
-            if (!JsonWrapper.TryLoadJson(persistent.ExtendToFile("WorldState.txt"), out WorldSave.WorldState state))
+            if (!JSON.FromFile(Path.Combine(persistent, "WorldState.txt"), out WorldSave.WorldState state))
                 throw new Exception("'WorldState.txt' file cannot be found or could not be loaded.");
 
-            if (!JsonWrapper.TryLoadJson(persistent.ExtendToFile("Rockets.txt"), out List<RocketSave> rocketSaves))
+            if (!JSON.FromFile(Path.Combine(persistent, "Rockets.txt"), out List<RocketSave> rocketSaves))
                 throw new Exception("'Rockets.txt' file cannot be found or could not be loaded.");
 
             worldTime = state.worldTime;

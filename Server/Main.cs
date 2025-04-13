@@ -42,6 +42,8 @@ namespace MultiplayerSFS.Server
 			{
 				Logger.Error(e);
 			}
+			Console.WriteLine("Press any key to exit...");
+			Console.Read();
 		}
 	}
 }
