@@ -59,9 +59,6 @@ namespace MultiplayerSFS.Server
                     {
 	                    world.worldTime += deltaTime;
                     }
-					
-                    Console.WriteLine(world.worldTime);
-                    Console.Clear();
 				}
 			}
 			catch (Exception e)
