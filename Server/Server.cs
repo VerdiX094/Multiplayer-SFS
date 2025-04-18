@@ -41,20 +41,27 @@ namespace MultiplayerSFS.Server
 			try
 			{
 				Logger.Info($"Multiplayer SFS server started, listening for connections on port {server.Port}...", true);
-				Stopwatch worldTimer = Stopwatch.StartNew();
+				long lastTimestamp = Stopwatch.GetTimestamp();
+				double deltaTime;
 				
 				while (true)
 				{
+					long currentTimestamp = Stopwatch.GetTimestamp();
+					deltaTime = (currentTimestamp - lastTimestamp) / (double)Stopwatch.Frequency;
+					lastTimestamp = currentTimestamp;
+					
 					if (Listen())
                     {
                         UpdatePlayerAuthorities();
                     }
 
                     if (connectedPlayers.Values.Any(p => p.controlledRocket >= 0))
-					{
-						world.worldTime += worldTimer.Elapsed.TotalSeconds;
-					}
-					worldTimer.Restart();
+                    {
+	                    world.worldTime += deltaTime;
+                    }
+					
+                    Console.WriteLine(world.worldTime);
+                    Console.Clear();
 				}
 			}
 			catch (Exception e)

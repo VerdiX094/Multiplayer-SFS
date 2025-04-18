@@ -61,13 +61,13 @@ namespace MultiplayerSFS.Common
             if (!persistent.FolderExists())
                 throw new Exception("'Persistent' folder cannot be found or does not exist.");
 
-            if (!JsonWrapper.TryLoadJson(folder.ExtendToFile("WorldSettings.txt"), out WorldSettings settings))
+            if (!JSON.FromFile(folder.ExtendToFile("WorldSettings.txt"), out WorldSettings settings))
                 throw new Exception("'WorldSettings.txt' file cannot be found or could not be loaded.");
 
-            if (!JsonWrapper.TryLoadJson(persistent.ExtendToFile("WorldState.txt"), out WorldSave.WorldState state))
+            if (!JSON.FromFile(persistent.ExtendToFile("WorldState.txt"), out WorldSave.WorldState state))
                 throw new Exception("'WorldState.txt' file cannot be found or could not be loaded.");
 
-            if (!JsonWrapper.TryLoadJson(persistent.ExtendToFile("Rockets.txt"), out List<RocketSave> rocketSaves))
+            if (!JSON.FromFile(persistent.ExtendToFile("Rockets.txt"), out List<RocketSave> rocketSaves))
                 throw new Exception("'Rockets.txt' file cannot be found or could not be loaded.");
 
             worldTime = state.worldTime;
