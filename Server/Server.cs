@@ -2,8 +2,10 @@ using System;
 using System.Net;
 using System.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
 using Lidgren.Network;
 using MultiplayerSFS.Common;
+using Color = UnityEngine.Color;
 
 namespace MultiplayerSFS.Server
 {
@@ -53,11 +55,6 @@ namespace MultiplayerSFS.Server
                         UpdatePlayerAuthorities();
                     }
 					// world.UpdateWorldTime(connectedPlayers.Values.Any(p => p.controlledRocket >= 0));
-
-                    if (connectedPlayers.Values.Any(p => p.controlledRocket >= 0))
-                    {
-	                    world.worldTime += deltaTime;
-                    }
 				}
 			}
 			catch (Exception e)
@@ -203,7 +200,7 @@ namespace MultiplayerSFS.Server
 					PlayerId = newPlayer.id,
 					UpdateRocketsPeriod = settings.updateRocketsPeriod,
 					ChatMessageCooldown = settings.chatMessageCooldown,
-					WorldTime = world.worldTime,
+					WorldTime = world.WorldTime,
 					Difficulty = world.difficulty,
 				}
 			);
@@ -294,7 +291,7 @@ namespace MultiplayerSFS.Server
 					msg.SenderConnection,
 					new Packet_UpdateWorldTime()
 					{
-						WorldTime = world.worldTime,
+						WorldTime = world.WorldTime,
 					}
 				);
 			}
