@@ -169,6 +169,14 @@ namespace MultiplayerSFS.Mod.Patches
                                 renderer.color.b * player.iconColor.b,
                                 renderer.color.a
                             );
+                            double num = rocket.location.position.Value.magnitude * 50.0 + rocket.location.planet.Value.SOI * 5.0;
+                            Color color = new Color(
+                                player.iconColor.r,
+                                player.iconColor.g,
+                                player.iconColor.b,
+                                MapDrawer.GetFadeOut(Map.view.view.distance, num, num * 1.25)
+                            );
+                            Map.elementDrawer.DrawTextElement(player.username, Vector2.zero, 24, color, (Vector2)__instance.gameObject.transform.position + Vector2.up * 20f, 5, false, 0);
                             return;
                         }
                     }

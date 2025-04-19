@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Server;
 
 namespace MultiplayerSFS.Server
 {
@@ -10,6 +11,7 @@ namespace MultiplayerSFS.Server
 		{
 			try
 			{
+				ServerUI.RefreshUI();
 				ServerSettings settings;
 				if (!File.Exists(CONFIG_FILENAME))
 				{
