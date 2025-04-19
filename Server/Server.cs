@@ -1,9 +1,7 @@
 using System;
 using System.Net;
 using System.Linq;
-using System.Diagnostics;
 using System.Collections.Generic;
-using UnityEngine;
 using Lidgren.Network;
 using MultiplayerSFS.Common;
 
@@ -54,6 +52,7 @@ namespace MultiplayerSFS.Server
                     {
                         UpdatePlayerAuthorities();
                     }
+					// world.UpdateWorldTime(connectedPlayers.Values.Any(p => p.controlledRocket >= 0));
 
                     if (connectedPlayers.Values.Any(p => p.controlledRocket >= 0))
                     {
